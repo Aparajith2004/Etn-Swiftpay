@@ -1,41 +1,56 @@
 # Etn-Swiftpay
-Inspiration
-Cryptocurrencies are growing in popularity, yet real-world adoption for everyday transactions remains limited. Many businesses and consumers hesitate due to complex processes, slow transactions, and the volatility of crypto prices. Inspired by the need for a seamless and scalable crypto payment solution, ETN Swift-Pay was created to make Electroneum (ETN) payments as easy as using a credit card fast, secure, and user-friendly.
+Seamless ETN Crypto Payments via QR Code
 
-What it does 
-ETN Swift-Pay is a web-based crypto payment gateway that allows users to:  
-Make instant ETN transactions via QR code scanning.  
-Enable merchants to accept ETN payments with automatic fiat conversion.  
-Ensure security and transparency through blockchain verification.  
-Offer a user-friendly interface for both businesses and consumers.  
-Provide transaction tracking & history within the system.  
+Project Overview 
+  ETN SwiftPay is a simple and secure crypto payment gateway that allows users to generate a QR code for Electroneum (ETN) payments. Built using Flask for the backend and       HTML/CSS/JavaScript for the frontend, it enables smooth and fast transactions.  
 
-How we built it
-Blockchain Integration: Leveraged the Electroneum API to facilitate ETN transactions.  
-Web Development: Built using HTML, JavaScript, and CSS for the frontend.  
-Backend Infrastructure: Developed using Flask (`server.py`) to handle API requests, process payments, and manage user interactions.  
-Security Measures: Implemented encryption and multi-layer authentication** to prevent fraud.  
+Features 
+  Generate QR codes for ETN payments  
+  Simple and user-friendly interface  
+  Secure backend processing with Flask  
+  Supports real-time transaction validation  
+  Works on desktop and mobile browsers  
 
-Challenges we ran into 
-Ensuring Transaction Speed: Optimizing the blockchain transaction speed for real-time payments.  Merchant Adoption: Educating businesses on the benefits of accepting ETN.  
-Fiat Integration: Creating a seamless conversion mechanism for merchants.  
-User Experience: Simplifying the interface for crypto newcomers.  
+Tech Stack 
+  Frontend: HTML, CSS, JavaScript  
+  Backend: Flask (Python)  
+  API: Flask-based transaction processing  
+  Hosting: Can be hosted locally or on platforms like Heroku  
 
-Accomplishments
-Successfully integrated instant ETN transactions within the system.  
-Developed a secure and intuitive UI/UX for mainstream adoption.  
-Created a working prototype ready for testing with real users.  
-Built a solution that could drive mass adoption of Electroneum.  
+Installation & Setup  
 
-What we learned  
-Optimizing blockchain transactions for speed and scalability.  
-The importance of user education in crypto adoption.  
-Building merchant-friendly payment systems that integrate easily.  
-Enhancing security while keeping the user experience seamless. 
+Prerequisites 
+  Ensure you have the following installed:  
+  Python 3.x  
+  Pip (Python package manager)  
 
-What's next for ETN Swift-Pay?
-Beta Testing: Roll out the system for real-world testing with selected merchants.  
-Expand Merchant Support: Partner with businesses to drive adoption.  
-Fiat On-Ramp/Off-Ramp: Develop better conversion options for easier ETN-to-fiat transactions.  
-Enhanced Security & Compliance: Strengthen fraud prevention and regulatory adherence.  
-Multi-Currency Support: Extend beyond ETN for wider crypto adoption.  
+Step 1: Clone the Repository 
+  git clone https://github.com/yourusername/etn-swiftpay.git
+  cd etn-swiftpay
+
+Step 2: Install Dependencies 
+  pip install flask flask-cors
+
+Step 3: Run the Backend Server 
+  python server.py
+
+The Flask server will start at `http://127.0.0.1:5000`  
+
+Step 4: Open the Frontend 
+  1. Open `etn.html` in a web browser.  
+  2. Enter an amount and click Generate QR Code.  
+  3. Scan the QR code to proceed with the payment.  
+
+Project Demo  
+  Host this project using Heroku, Render, or any cloud service.  
+
+Troubleshooting  
+If you get a `ModuleNotFoundError`, run:  
+  pip install flask flask-cors
+If the server doesn’t start, check if port 5000 is already in use. Change the port in `server.py`:  
+  app.run(debug=True, port=5001)
+
+Future Improvements  
+  Add real-time transaction validation  
+  Enable multi-crypto support  
+  Improve UI/UX for better user experience  
