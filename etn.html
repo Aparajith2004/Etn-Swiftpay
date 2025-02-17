@@ -7,19 +7,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f0f8ff; 
+        }
         input, button { margin: 10px; padding: 10px; }
         #qrcode { margin-top: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <h2>Enter Amount:</h2>
-    <input type="number" id="amount" placeholder="Enter amount" />
-    <button onclick="handlePayment()">Generate QR</button>
+    <div class="container">
+        <img src="https://via.placeholder.com/50x50" alt="Payment Icon">
+        <h1>Welcome to ETN SwiftPay</h1>
+        <p>Fast, secure, and easy Electroneum (ETN) transactions.</p>
+        
+        <h2>About ETN SwiftPay</h2>
+        <p>ETN SwiftPay is a simple and efficient payment gateway built using HTML, JavaScript, and a Python Flask server. 
+           It allows users to generate a QR code for seamless Electroneum (ETN) transactions.</p>
+        
+        <button onclick="proceedToPayment()">Proceed</button>
     
-    <div id="qrcode"></div>
+        <div id="paymentSection" class="hidden">
+            <h3>Enter Amount:</h3>
+            <input type="number" id="amount" placeholder="Enter amount" />
+            <button onclick="handlePayment()">Generate QR</button>
+            <div id="qrcode"></div>
+            <p id="thankYouMessage" class="hidden">Thank you for using ETN SwiftPay! Your transactions are safe and secure.</p>
+        </div>
+    </div>
     
     <script>
+        function proceedToPayment() {
+            document.getElementById('paymentSection').classList.remove('hidden');
+        }
+
         async function handlePayment() {
             const amount = document.getElementById('amount').value;
             const walletAddress = 'etn-your-wallet-address';
@@ -30,11 +55,12 @@
             }
             
             try {
-                const response = await axios.post('http://localhost:5000/api/pay', { amount, walletAddress });
+                const response = await axios.post('http://127.0.0.1:5000/api/pay', { amount, walletAddress });
                 if (response.data && response.data.txHash) {
                     document.getElementById('qrcode').innerHTML = "";
                     new QRCode(document.getElementById('qrcode'), response.data.txHash);
                     alert('Payment Successful! Transaction Hash: ' + response.data.txHash);
+                    document.getElementById('thankYouMessage').classList.remove('hidden');
                 } else {
                     throw new Error('Invalid transaction response');
                 }
