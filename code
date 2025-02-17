@@ -1,0 +1,55 @@
+/* ETN SwiftPay - React Native Frontend */
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
+import QRCode from 'react-native-qrcode-svg';
+import axios from 'axios';
+
+const App = () => {
+  const [amount, setAmount] = useState('');
+  const [walletAddress, setWalletAddress] = useState('etn-your-wallet-address');
+  const [transactionHash, setTransactionHash] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handlePayment = async () => {
+    if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
+      Alert.alert('Invalid Input', 'Please enter a valid amount.');
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      const response = await axios.post('https://your-backend.com/api/pay', { amount, walletAddress });
+      if (response.data && response.data.txHash) {
+        setTransactionHash(response.data.txHash);
+        Alert.alert('Payment Successful', `Transaction Hash: ${response.data.txHash}`);
+      } else {
+        throw new Error('Invalid transaction response');
+      }
+    } catch (error) {
+      Alert.alert('Payment Failed', error.response?.data?.message || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+      <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Enter Amount:</Text>
+      <TextInput
+        value={amount}
+        onChangeText={setAmount}
+        keyboardType="numeric"
+        style={{ borderWidth: 1, padding: 10, marginVertical: 10, width: '80%', textAlign: 'center' }}
+      />
+      <Button title={loading ? "Processing..." : "Generate QR"} onPress={handlePayment} disabled={loading} />
+      {transactionHash ? (
+        <View style={{ marginTop: 20, alignItems: 'center' }}>
+          <Text style={{ fontSize: 16, color: 'green' }}>Transaction Successful!</Text>
+          <QRCode value={transactionHash} size={150} />
+        </View>
+      ) : null}
+    </View>
+  );
+};
+
+export default App;
